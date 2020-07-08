@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Builder
@@ -15,7 +16,13 @@ public class UserDto implements UserDetails {
     private String username;
     private String password;
     private boolean enabled;
-    private List<GrantedAuthority> authorities;
+
+    private List<String> roles;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

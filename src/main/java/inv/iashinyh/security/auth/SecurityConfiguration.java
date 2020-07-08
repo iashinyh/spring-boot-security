@@ -17,14 +17,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 미사용
-            .and()
-                .authorizeRequests()
-                .anyRequest().permitAll()
+        http.httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 미사용
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().permitAll();
+
     }
 
     @Bean

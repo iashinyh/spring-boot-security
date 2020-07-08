@@ -6,10 +6,12 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "AUTHORITY")
+@Table(name = "role")
 @Getter
 @ToString
-public class AuthorityEntity extends SystemEntity {
+public class RoleEntity extends SystemEntity {
+
+    @Column(name = "username")
     private String username;
-    private String authority;
+    private String role;
 }

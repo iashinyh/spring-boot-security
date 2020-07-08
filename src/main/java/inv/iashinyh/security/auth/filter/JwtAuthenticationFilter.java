@@ -1,5 +1,6 @@
 package inv.iashinyh.security.auth.filter;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,9 +14,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
-    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     @Override
